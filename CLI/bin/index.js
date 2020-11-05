@@ -15,6 +15,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "stokarzewski",
   password: "XD",
+  localAddress: "mysql",
 });
 
 yargs(hideBin(process.argv))

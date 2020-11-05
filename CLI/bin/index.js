@@ -12,10 +12,9 @@ const boxenOptions = {
 };
 
 const connection = mysql.createConnection({
-  host: "localhost",
+  host: "mysql",
   user: "stokarzewski",
   password: "XD",
-  localAddress: "mysql",
 });
 
 yargs(hideBin(process.argv))
@@ -97,32 +96,20 @@ yargs(hideBin(process.argv))
     }
   )
   .command(
-    "insert",
+    "insert [firstName] [lastName]",
     "create table",
     (yargs) => {
-      yargs.usage("Usage: -v <value1, value2, ...>").option("v", {
-        alias: "value",
-        describe: "Values to insert",
-        type: "string",
-        demandOption: true,
-      }).argv;
+      yargs.argv;
     },
     (argv) => {
-      const values = argv.value.split(",");
-      if (values.length !== 2) {
-        console.log(
-          chalk.red.bold(
-            `Incorrect number of values. Expected 2, got ${values.length} `
-          )
-        );
+      if (!argv.firstName || !argv.lastName) {
+        console.log(chalk.red.bold("Incorrect amount of parameters."));
         process.exit(1);
       }
       connection.connect((err) => {
         if (err) throw err;
         connection.query(
-          `INSERT INTO testdb.testTable (FirstName,LastName) VALUES ( ${values
-            .map((value) => `"${value.trim()}"`)
-            .join(", ")} );`,
+          `INSERT INTO testdb.testTable (FirstName,LastName) VALUES ("${argv.firstName}","${argv.lastName}");`,
           (err, result) => {
             if (err) throw err;
             console.log(
@@ -202,7 +189,6 @@ yargs(hideBin(process.argv))
     "print table rows",
     (yargs) => {
       yargs
-        .usage("Usage: -v <value1, value2, ...>")
         .option("f", {
           alias: "firstName",
           describe: "First name",

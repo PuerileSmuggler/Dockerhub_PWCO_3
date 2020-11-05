@@ -12,7 +12,7 @@ const boxenOptions = {
 };
 
 const connection = mysql.createConnection({
-  host: "mysql",
+  host: "full202086429",
   user: "stokarzewski",
   password: "XD",
 });

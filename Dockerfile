@@ -2,6 +2,6 @@ FROM node
 
 COPY CLI db
 
-RUN cd db && npm i && node . create && node . create-table
+RUN cd db && npm i
 
 ENTRYPOINT [ "/bin/bash" ]

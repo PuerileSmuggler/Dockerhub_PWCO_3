@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:16.04
 LABEL maintainer="Szymon Tokarzewski"
 RUN apt-get update && apt-get install -y apache2
 EXPOSE 80
